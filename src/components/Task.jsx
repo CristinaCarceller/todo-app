@@ -1,14 +1,12 @@
 const Task = (props) => {
-	const { todo, deleteTodo, onComplitionToggle, completed } = props;
+	const { todo, onDelete, completed } = props;
 
 	return (
 		<li>
 			<div>
 				<p>{todo}</p>
-				<button onClick={deleteTodo}>Delete</button>
-				<button onClick={onComplitionToggle}>
-					{completed ? "Completed" : "No Completed"}
-				</button>
+				<button onClick={onDelete}>Delete</button>
+				<button>{completed ? "Done" : "To Do"}</button>
 			</div>
 		</li>
 	);

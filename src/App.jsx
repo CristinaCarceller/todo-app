@@ -1,5 +1,8 @@
+import { todo } from "node:test";
 import React, { useState, useEffect } from "react";
 import Task from "./components/Task";
+// import Sort from "./components/Sort";
+// import "./app.css";
 
 const App = () => {
 	const [todos, setTodos] = useState([]);
@@ -27,29 +30,23 @@ const App = () => {
 		setTask("");
 	};
 
-	//print the todo list on the screen + delete tasks
-	const list = todos.map((todo, index) => {
-		const deleteTodo = () => {
-			const newTodos = [...todos];
-			newTodos.splice(index, 1);
-			setTodos(newTodos);
-		};
-		const onComplitionToggle = () => {
-			const completedTask = [...todos];
-			todo.completed = !todo.completed;
-			setTodos(completedTask);
-		};
-		return (
-			<Task
-				key={todo.id}
-				id={todo.id}
-				todo={todo.text}
-				completed={todo.completed}
-				deleteTodo={deleteTodo}
-				onComplitionToggle={onComplitionToggle}
-			/>
-		);
-	});
+	//delete task
+	const onDelete = (id) => {
+		const index = todos.findIndex((todo) => todo.id === id);
+		const newTodos = [...todos];
+		newTodos.splice(index, 1);
+		setTodos(newTodos);
+	};
+	//mark a task as completed
+	// const onCompletionToggle = (id) => {
+	// 	const completedTask = [...todos];
+	// 	if (todo.id === id) {
+	// 		todo.completed;
+	// 	} else {
+	// 		!todo.completed;
+	// 	}
+	// 	setTodos(completedTask);
+	// };
 
 	useEffect(() => {
 		console.log({ todos });
@@ -61,7 +58,21 @@ const App = () => {
 
 			<input type="text" id={todos.id} value={task} onChange={onChange} />
 			<button onClick={onAdd}>Add</button>
-			<ul>{list}</ul>
+			{/* print todo list on the screen */}
+			<ul>
+				{todos.map((todo) => {
+					return (
+						<Task
+							key={todo.id}
+							id={todo.id}
+							todo={todo.text}
+							completed={todo.completed}
+							onDelete={onDelete}
+							// onCompletionToggle={onCompletionToggle}
+						/>
+					);
+				})}
+			</ul>
 		</>
 	);
 };
