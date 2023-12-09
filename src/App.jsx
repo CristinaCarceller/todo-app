@@ -1,4 +1,3 @@
-import { todo } from "node:test";
 import React, { useState, useEffect } from "react";
 import Task from "./components/Task";
 // import Sort from "./components/Sort";
@@ -33,20 +32,18 @@ const App = () => {
 	//delete task
 	const onDelete = (id) => {
 		const index = todos.findIndex((todo) => todo.id === id);
+		console.log({ index });
 		const newTodos = [...todos];
 		newTodos.splice(index, 1);
 		setTodos(newTodos);
 	};
 	//mark a task as completed
-	// const onCompletionToggle = (id) => {
-	// 	const completedTask = [...todos];
-	// 	if (todo.id === id) {
-	// 		todo.completed;
-	// 	} else {
-	// 		!todo.completed;
-	// 	}
-	// 	setTodos(completedTask);
-	// };
+	const onCompletionToggle = (id) => {
+		const index = todos.findIndex((todo) => todo.id === id);
+		const newTodos = [...todos];
+		newTodos[index].completed = !newTodos[index].completed;
+		setTodos(newTodos);
+	};
 
 	useEffect(() => {
 		console.log({ todos });
@@ -68,7 +65,7 @@ const App = () => {
 							todo={todo.text}
 							completed={todo.completed}
 							onDelete={onDelete}
-							// onCompletionToggle={onCompletionToggle}
+							onCompletionToggle={onCompletionToggle}
 						/>
 					);
 				})}
