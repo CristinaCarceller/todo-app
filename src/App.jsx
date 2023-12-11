@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Task from "./components/Task";
-// import Sort from "./components/Sort";
+import Sort from "./components/Sort";
 // import "./app.css";
 
 const App = () => {
@@ -32,7 +32,7 @@ const App = () => {
 	//delete task
 	const onDelete = (id) => {
 		const index = todos.findIndex((todo) => todo.id === id);
-		console.log({ index });
+
 		const newTodos = [...todos];
 		newTodos.splice(index, 1);
 		setTodos(newTodos);
@@ -42,6 +42,26 @@ const App = () => {
 		const index = todos.findIndex((todo) => todo.id === id);
 		const newTodos = [...todos];
 		newTodos[index].completed = !newTodos[index].completed;
+		setTodos(newTodos);
+	};
+
+	//sort the list of todos alphabetically
+	const sort = (sortDirection) => {
+		console.log(todos, sortDirection);
+		const newTodos = [...todos];
+		if (sortDirection === "A-Z") {
+			newTodos.sort((taskOne, taskTwo) => {
+				if (taskOne.text < taskTwo.text) return -1;
+				if (taskOne.text > taskTwo.text) return 1;
+				return 0;
+			});
+		} else if (sortDirection === "Z-A") {
+			newTodos.sort((taskOne, taskTwo) => {
+				if (taskOne.text > taskTwo.text) return -1;
+				if (taskOne.text < taskTwo.text) return 1;
+				return 0;
+			});
+		}
 		setTodos(newTodos);
 	};
 
@@ -55,6 +75,8 @@ const App = () => {
 
 			<input type="text" id={todos.id} value={task} onChange={onChange} />
 			<button onClick={onAdd}>Add</button>
+			<Sort sort={sort} />
+
 			{/* print todo list on the screen */}
 			<ul>
 				{todos.map((todo) => {

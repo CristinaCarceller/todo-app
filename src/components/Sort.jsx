@@ -1,18 +1,24 @@
-// const Sort = (props) => {
-// 	const { sortAZ, sortZA, list, sortedList } = props;
-// 	return (
-// 		<>
-// 			<select name="sort" id="sort.id">
-// 				<option value=""> - -</option>
-// 				<option value="A-Z" onClick={sortAZ}>
-// 					A - Z
-// 				</option>
-// 				<option value="Z-A" onClick={sortZA}>
-// 					Z - A
-// 				</option>
-// 			</select>
-// 		</>
-// 	);
-// };
+import { useState } from "react";
 
-// export default Sort;
+const Sort = (props) => {
+	const [sortValue, setSortValue] = useState("");
+	const { sort } = props;
+	return (
+		<>
+			<select
+				value={sortValue}
+				onChange={(e) => {
+					sort(e.target.value);
+					setSortValue(e.target.value);
+				}}
+				name="sort"
+				id="sort.id">
+				<option value=""> - -</option>
+				<option value="A-Z">A - Z</option>
+				<option value="Z-A">Z - A</option>
+			</select>
+		</>
+	);
+};
+
+export default Sort;
